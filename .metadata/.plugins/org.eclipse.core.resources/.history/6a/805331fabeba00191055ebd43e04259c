@@ -1,5 +1,0 @@
-package com.project.socialbooks.repository;
-
-public interface ComentariosRepository {
-
-}

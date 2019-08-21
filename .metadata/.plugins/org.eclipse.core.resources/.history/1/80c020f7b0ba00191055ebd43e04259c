@@ -1,5 +1,0 @@
-package com.projetc.socialbooks.services.exceptions;
-
-public class LivroNaoEncontradoException {
-
-}
