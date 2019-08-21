@@ -1,4 +1,4 @@
-package com.project.socialbooks.aplicacao;
+package com.project.socialbooks.client.domain;
 
 import java.util.Date;
 

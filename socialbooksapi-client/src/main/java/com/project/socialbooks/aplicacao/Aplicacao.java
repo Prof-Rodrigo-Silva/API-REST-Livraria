@@ -1,28 +1,38 @@
 package com.project.socialbooks.aplicacao;
 
-import java.net.URI;
+import java.text.SimpleDateFormat;
+import java.util.List;
 
-import org.springframework.http.RequestEntity;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.client.RestTemplate;
+import com.project.socialbooks.client.LivrosClient;
+import com.project.socialbooks.client.domain.Livro;
+import com.sun.org.apache.xerces.internal.impl.xpath.regex.ParseException;
 
 public class Aplicacao {
 	
-	public static void main(String[] args) {
+	public static void main(String[] args) throws ParseException, Exception{
 
+		LivrosClient cliente = new LivrosClient();
+		
+		List<Livro> listaLivros = cliente.listar();
 	
-		RestTemplate restTemplate = new RestTemplate();
-		
-		RequestEntity<Void> request = RequestEntity
-				.get(URI.create("http://localhost:8080/livros"))
-				.header("Authorization", "Basic cm9kcmlnbzpzM25oNA==").build();
 		
 		
-		ResponseEntity<Livro[]> response = restTemplate.exchange(request, Livro[].class);
-		
-		for (Livro livro : response.getBody()) {
+		for (Livro livro : listaLivros) {
 			System.out.println("Livro: "+livro.getNome());
 		}
+		Livro livro = new Livro();
+		livro.setNome("Android");
+		livro.setEditora("LEB");
+		
+		SimpleDateFormat publicacao = new SimpleDateFormat("dd/MM/yyyy");
+		livro.setPublicacao(publicacao.parse("21/08/2019"));
+		
+		livro.setResumo("PHP Avançado");
+		
+		String localizacao = cliente.salvar(livro);
+		
+		System.out.println("URI do livro salvo: "+ localizacao);
+		
 	}
 
 }
